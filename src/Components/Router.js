@@ -5,15 +5,15 @@ import Auth from '../Routes/Auth';
 import Feed from '../Routes/Feed';
 
 const LoggedInRoutes = () => (
-  <>
+  <React.Fragment>
     <Route exact path="/" component={Feed} />
-  </>
+  </React.Fragment>
 );
 
 const LoggedOutRoutes = () => (
-  <>
+  <React.Fragment>
     <Route exact path="/" component={Auth} />
-  </>
+  </React.Fragment>
 );
 
 const AppRouter = ({ isLoggedIn }) => (

@@ -6,9 +6,9 @@ import Router from './Router';
 
 export default () => (
   <ThemeProvider theme={Theme}>
-    <>
+    <React.Fragment>
       <GlobalStyles />
       <Router isLoggedIn={false} />
-    </>
+    </React.Fragment>
   </ThemeProvider>
 );
