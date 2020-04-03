@@ -9,11 +9,11 @@ export default {
   redColor: '##ED4956',
   blueColor: '#3897F0',
   darkBlueColor: '#003569',
-  boxBorder: '',
-  borderRadius: '',
+  boxBorder: '1px solid #e6e6e6',
+  borderRadius: '4px',
   whiteBox: `
-    ${BOX_BORDER};
-    ${BORDER_RADIUS};
+    border: ${BOX_BORDER};
+    border-radius: ${BORDER_RADIUS};
     background-color: white;
   `,
 };
