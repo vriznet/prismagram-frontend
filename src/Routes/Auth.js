@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
+import useInput from '../Hooks/useInput';
 
 const Wrapper = styled.div`
   min-height: 80vh;
@@ -12,7 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
-  ${props => props.theme.whiteBox}
+  ${(props) => props.theme.whiteBox}
   border-radius: 0px;
   width: 100%;
   max-width: 350px;
@@ -24,7 +25,7 @@ const StateChanger = styled(Box)`
 `;
 
 const Link = styled.span`
-  color: ${props => props.theme.blueColor};
+  color: ${(props) => props.theme.blueColor};
   cursor: pointer;
 `;
 
@@ -48,6 +49,11 @@ const Form = styled(Box)`
 
 export default () => {
   const [action, setAction] = useState('logIn');
+  const username = useInput('');
+  const password = useInput('');
+  const firstName = useInput('');
+  const lastName = useInput('');
+  const email = useInput('');
 
   return (
     <React.Fragment>
@@ -55,17 +61,17 @@ export default () => {
         <Form>
           {action === 'logIn' ? (
             <form>
-              <Input placeholder={'Username'} />
-              <Input placeholder={'Password'} />
+              <Input {...username} placeholder={'Username'} />
+              <Input {...password} placeholder={'Password'} type="password" />
               <Button text={'Log In'} />
             </form>
           ) : (
             <form>
-              <Input placeholder={'First name'} />
-              <Input placeholder={'Last name'} />
-              <Input placeholder={'Email'} />
-              <Input placeholder={'Username'} />
-              <Input placeholder={'Password'} />
+              <Input {...firstName} placeholder={'First name'} />
+              <Input {...lastName} placeholder={'Last name'} />
+              <Input {...email} placeholder={'Email'} type="email" />
+              <Input {...username} placeholder={'Username'} />
+              <Input {...password} placeholder={'Password'} type="password" />
               <Button text={'Sign Up'} />
             </form>
           )}
