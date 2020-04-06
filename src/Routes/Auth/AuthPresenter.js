@@ -80,18 +80,20 @@ export default ({
         </form>
       )}
     </Form>
-    <StateChanger>
-      {action === 'logIn' ? (
-        <React.Fragment>
-          Don't have an account?{' '}
-          <Link onClick={() => setAction('signUp')}>Sign up</Link>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          Have an account?{' '}
-          <Link onClick={() => setAction('logIn')}>Log in</Link>
-        </React.Fragment>
-      )}
-    </StateChanger>
+    {action !== 'confirm' && (
+      <StateChanger>
+        {action === 'logIn' ? (
+          <React.Fragment>
+            Don't have an account?{' '}
+            <Link onClick={() => setAction('signUp')}>Sign up</Link>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            Have an account?{' '}
+            <Link onClick={() => setAction('logIn')}>Log in</Link>
+          </React.Fragment>
+        )}
+      </StateChanger>
+    )}
   </Wrapper>
 );
