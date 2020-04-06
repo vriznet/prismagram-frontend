@@ -21,11 +21,11 @@ const ListItem = styled.li`
 `;
 
 const Link = styled.a`
-  color: ${props => props.theme.darkBlueColor};
+  color: ${(props) => props.theme.darkBlueColor};
 `;
 
 const Copyright = styled.span`
-  color: ${props => props.theme.darkGrayColor};
+  color: ${(props) => props.theme.darkGrayColor};
 `;
 
 export default () => (
