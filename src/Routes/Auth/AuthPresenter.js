@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 
@@ -59,25 +60,40 @@ export default ({
   <Wrapper>
     <Form>
       {action === 'logIn' && (
-        <form onSubmit={onSubmit}>
-          <Input {...email} placeholder={'Email'} type="email" />
-          <Button text={'Log In'} />
-        </form>
+        <React.Fragment>
+          <Helmet>
+            <title>Log In | Prismagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input {...email} placeholder={'Email'} type="email" />
+            <Button text={'Log In'} />
+          </form>
+        </React.Fragment>
       )}
       {action === 'signUp' && (
-        <form onSubmit={onSubmit}>
-          <Input {...firstName} placeholder={'First name'} />
-          <Input {...lastName} placeholder={'Last name'} />
-          <Input {...username} placeholder={'Username'} />
-          <Input {...email} placeholder={'Email'} type="email" />
-          <Button text={'Sign Up'} />
-        </form>
+        <React.Fragment>
+          <Helmet>
+            <title>Sign Up | Prismagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input {...firstName} placeholder={'First name'} />
+            <Input {...lastName} placeholder={'Last name'} />
+            <Input {...username} placeholder={'Username'} />
+            <Input {...email} placeholder={'Email'} type="email" />
+            <Button text={'Sign Up'} />
+          </form>
+        </React.Fragment>
       )}
       {action === 'confirm' && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder="Paste your secret" required {...secret} />
-          <Button text={'Confirm'} />
-        </form>
+        <React.Fragment>
+          <Helmet>
+            <title>Confirm Secret | Prismagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder="Paste your secret" required {...secret} />
+            <Button text={'Confirm'} />
+          </form>
+        </React.Fragment>
       )}
     </Form>
     {action !== 'confirm' && (
