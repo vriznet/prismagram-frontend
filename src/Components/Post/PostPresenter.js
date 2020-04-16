@@ -90,6 +90,17 @@ const Textarea = styled(TextareaAutosize)`
   }
 `;
 
+const Comments = styled.ul`
+  margin-top: 10px;
+`;
+
+const OneComment = styled.li`
+  margin-bottom: 7px;
+  span {
+    margin-right: 4px;
+  }
+`;
+
 export default ({
   user: { username, avatar },
   location,
@@ -100,6 +111,9 @@ export default ({
   newComment,
   currentItem,
   toggleLike,
+  onKeyPress,
+  comments,
+  selfComments,
 }) => {
   return (
     <Post>
@@ -131,12 +145,31 @@ export default ({
           </Button>
         </Buttons>
         <FatText text={likeCount === 1 ? '1 like' : `${likeCount} likes`} />
+        {comments && (
+          <Comments>
+            {comments.map((comment) => (
+              <OneComment key={comment.id}>
+                <FatText text={comment.user.username} />
+                {comment.text}
+              </OneComment>
+            ))}
+            {selfComments.map((selfComment) => (
+              <OneComment key={selfComment.id}>
+                <FatText text={selfComment.user.username} />
+                {selfComment.text}
+              </OneComment>
+            ))}
+          </Comments>
+        )}
         <Timestamp>{createdAt}</Timestamp>
-        <Textarea
-          placeholder={'Add a comment...'}
-          {...newComment}
-          onResize={(e) => {}}
-        />
+        <form>
+          <Textarea
+            onKeyPress={onKeyPress}
+            placeholder={'Add a comment...'}
+            value={newComment.value}
+            onChange={newComment.onChange}
+          />
+        </form>
       </Meta>
     </Post>
   );

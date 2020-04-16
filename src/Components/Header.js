@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import Input from './Input';
 import useInput from '../Hooks/useInput';
 import { Logo, HomeEmpty, CompassEmpty, HeartEmpty, UserEmpty } from './Icon';
 import { useQuery } from 'react-apollo-hooks';
+import { ME } from '../SharedQueries';
 
 const Header = styled.header`
   ${(props) => props.theme.whiteBox};
@@ -57,14 +57,6 @@ const HeaderLink = styled(Link)`
   }
 `;
 
-const ME = gql`
-  {
-    me {
-      username
-    }
-  }
-`;
-
 export default () => {
   const history = useHistory();
   const search = useInput('');
@@ -84,7 +76,11 @@ export default () => {
         </HeaderColumn>
         <HeaderColumn>
           <form onSubmit={onSearchSubmit}>
-            <SearchInput {...search} placeholder="Search" />
+            <SearchInput
+              value={search.value}
+              onChange={search.onChange}
+              placeholder="Search"
+            />
           </form>
         </HeaderColumn>
         <HeaderColumn>

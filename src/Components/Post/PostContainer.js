@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../../Hooks/useInput';
-import { useMutation } from 'react-apollo-hooks';
+import { useMutation, useQuery } from 'react-apollo-hooks';
 import PostPresenter from './PostPresenter';
-import { TOGGLE_LIKE } from './PostQueries';
+import { TOGGLE_LIKE, ADD_COMMENT } from './PostQueries';
+import { ME } from '../../SharedQueries';
 
 const PostContainer = ({
   id,
@@ -19,10 +20,16 @@ const PostContainer = ({
   const [isLikedState, setIsLikedState] = useState(isLiked);
   const [likeCountState, setLikeCountState] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
+  const [selfComments, setSelfComments] = useState([]);
   const comment = useInput('');
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id },
   });
+  const [addCommentMutation] = useMutation(ADD_COMMENT, {
+    variables: { postId: id, text: comment.value },
+  });
+
+  const { data } = useQuery(ME);
 
   useEffect(() => {
     const totalFiles = files.length;
@@ -45,6 +52,25 @@ const PostContainer = ({
     }
   };
 
+  const onKeyPress = (event) => {
+    const { which } = event;
+
+    if (which === 13) {
+      event.preventDefault();
+      comment.setValue('');
+      setSelfComments([
+        ...selfComments,
+        {
+          id: Math.floor(Math.random() * 100),
+          text: comment.value,
+          user: { username: data && data.me && data.me.username },
+        },
+      ]);
+      addCommentMutation();
+    }
+    return;
+  };
+
   return (
     <React.Fragment>
       <PostPresenter
@@ -62,6 +88,8 @@ const PostContainer = ({
         avatar={user.avatar}
         currentItem={currentItem}
         toggleLike={toggleLike}
+        onKeyPress={onKeyPress}
+        selfComments={selfComments}
       />
     </React.Fragment>
   );
