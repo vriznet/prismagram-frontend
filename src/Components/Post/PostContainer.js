@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../../Hooks/useInput';
+import { useMutation } from 'react-apollo-hooks';
 import PostPresenter from './PostPresenter';
+import { TOGGLE_LIKE } from './PostQueries';
 
 const PostContainer = ({
   id,
@@ -18,6 +20,9 @@ const PostContainer = ({
   const [likeCountState, setLikeCountState] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
   const comment = useInput('');
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
+    variables: { postId: id },
+  });
 
   useEffect(() => {
     const totalFiles = files.length;
@@ -27,6 +32,18 @@ const PostContainer = ({
       setTimeout(() => setCurrentItem(currentItem + 1), 3000);
     }
   }, [currentItem, files]);
+
+  const toggleLike = () => {
+    toggleLikeMutation();
+    if (isLikedState === true) {
+      setIsLikedState(false);
+      setLikeCountState(likeCountState - 1);
+    }
+    if (isLikedState === false) {
+      setIsLikedState(true);
+      setLikeCountState(likeCountState + 1);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -44,6 +61,7 @@ const PostContainer = ({
         setLikeCountState={setLikeCountState}
         avatar={user.avatar}
         currentItem={currentItem}
+        toggleLike={toggleLike}
       />
     </React.Fragment>
   );
