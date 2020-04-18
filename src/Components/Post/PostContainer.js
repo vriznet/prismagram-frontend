@@ -34,9 +34,11 @@ const PostContainer = ({
   useEffect(() => {
     const totalFiles = files.length;
     if (currentItem === totalFiles - 1) {
-      setTimeout(() => setCurrentItem(0), 3000);
+      const timeoutId = setTimeout(() => setCurrentItem(0), 3000);
+      return clearTimeout(timeoutId);
     } else {
-      setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+      const timeoutId = setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+      return clearTimeout(timeoutId);
     }
   }, [currentItem, files]);
 
