@@ -69,6 +69,7 @@ export default () => {
         lastName.value !== ''
       ) {
         try {
+          console.log(email.value);
           const {
             data: { createAccount },
           } = await createAccountMutation();
