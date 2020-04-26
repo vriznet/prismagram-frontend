@@ -114,3 +114,14 @@ export const Comment = () => (
     <path d="M22 3v13h-6.961l-3.039 3.798-3.039-3.798h-6.961v-13h20zm2-2h-24v17h8l4 5 4-5h8v-17z" />
   </svg>
 );
+
+export const CommentFull = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+  >
+    <path d="M24 1h-24v17h8l4 5.111 4-5.111h8z" />
+  </svg>
+);
